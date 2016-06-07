@@ -1,0 +1,161 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:controls="clr-namespace:Cerevo.UB300_Win.Controls">
+  <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+  <controls:BooleanNegationConverter x:Key="BooleanNegationConverter"/>
+  <controls:ImageRectConverter x:Key="ImageRectConverter"/>
+
+  <BitmapImage x:Key="AppLogo" UriSource="/Assets/logo.png"/>
+  <BitmapImage x:Key="BackgroundTile" UriSource="/Assets/bg_pattern.png"/>
+  <SolidColorBrush x:Key="AreaBackground" Color="#C01E1E1E" />
+
+  <Style x:Key="AreaBorderStyle" TargetType="{x:Type Border}">
+    <Setter Property="Background" Value="{StaticResource AreaBackground}" />
+    <Setter Property="Margin" Value="2"/>
+    <Setter Property="Padding" Value="2"/>
+  </Style>
+
+  <Style x:Key="SwModeRadioButtonStyle" TargetType="{x:Type RadioButton}">
+    <Setter Property="TextBlock.FontFamily" Value="{StaticResource DefaultFont}"/>
+    <Setter Property="TextBlock.FontWeight" Value="SemiBold"/>
+    <Setter Property="TextBlock.FontSize" Value="20"/>
+    <Setter Property="Cursor" Value="Hand"/>
+    <Setter Property="Margin" Value="20,0"/>
+    <Setter Property="Padding" Value="16,4,16,0"/>
+
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RadioButton}">
+          <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <md:Ripple Grid.Row="0" Focusable="False"
+                             Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                             Feedback="{DynamicResource SecondaryAccentBrush}"
+                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                             Padding="{TemplateBinding Padding}" 
+                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+            <Border x:Name="Indicator" Grid.Row="1" Opacity="0"
+                    BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                    Background="{DynamicResource PrimaryHueMidBrush}"/>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsChecked" Value="false" />
+                <Condition Property="IsMouseOver" Value="true" />
+              </MultiTrigger.Conditions>
+              <Setter Property="Opacity" TargetName="Indicator" Value="0.4"/>
+            </MultiTrigger>
+            <Trigger Property="IsChecked" Value="true">
+              <Setter Property="Opacity" TargetName="Indicator" Value="1"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Foreground" Value="Gray"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <ControlTemplate x:Key="SliderExThumb" TargetType="{x:Type Thumb}">
+    <Border x:Name="border" CornerRadius="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+      <Grid>
+        <Rectangle Fill="#80000000" />
+        <ContentPresenter Content="{Binding Content, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SliderEx}}"
+                        ContentStringFormat="{Binding ContentStringFormat, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SliderEx}}"
+                        ContentTemplate="{Binding ContentTemplate, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SliderEx}}"
+                        ContentTemplateSelector="{Binding ContentTemplateSelector, RelativeSource={RelativeSource FindAncestor, AncestorType=controls:SliderEx}}"
+                        Margin="{TemplateBinding Padding}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+      </Grid>
+    </Border>
+  </ControlTemplate>
+
+  <Style x:Key="SliderExTrackRepeatButton" TargetType="{x:Type RepeatButton}">
+    <Setter Property="OverridesDefaultStyle" Value="true"/>
+    <Setter Property="Focusable" Value="false"/>
+    <Setter Property="IsTabStop" Value="false"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type RepeatButton}">
+          <Grid>
+            <Rectangle Fill="Transparent" />
+            <Rectangle Fill="{TemplateBinding Foreground}" Width="4" Height="{TemplateBinding Height}" HorizontalAlignment="Center" />
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  
+  <Style TargetType="{x:Type controls:SliderEx}">
+    <Setter Property="Orientation" Value="Vertical" />
+    <Setter Property="Minimum" Value="0" />
+    <Setter Property="SmallChange" Value="1" />
+    <Setter Property="LargeChange" Value="10" />
+    <Setter Property="BorderBrush" Value="#80000000"/>
+    <Setter Property="BorderThickness" Value="2"/>
+    <Setter Property="Background" Value="#40000000"/>
+    <Setter Property="Foreground" Value="Lime" />
+    <Setter Property="FontSize" Value="20" />
+    <Setter Property="FontWeight" Value="SemiBold" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type controls:SliderEx}">
+          <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <Grid x:Name="border" Margin="-2,13,-2,-2">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition MinWidth="{TemplateBinding MinWidth}" Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <TickBar x:Name="TopTick" Grid.Column="0" Fill="{TemplateBinding Foreground}" Margin="0,0,2,0" Placement="Left" Visibility="Collapsed" Width="4"/>
+              <Rectangle x:Name="PART_SelectionRange" Grid.Column="1" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Height="4.0" Visibility="Hidden" />
+              <Track x:Name="PART_Track" Grid.Column="1">
+                <Track.DecreaseRepeatButton>
+                  <RepeatButton x:Name="DecreaseRepeatButton" Command="{x:Static Slider.DecreaseLarge}" Margin="0,-15,0,15" Style="{StaticResource SliderExTrackRepeatButton}"/>
+                </Track.DecreaseRepeatButton>
+                <Track.IncreaseRepeatButton>
+                  <RepeatButton x:Name="IncreaseRepeatButton" Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource SliderExTrackRepeatButton}" Foreground="Black"/>
+                </Track.IncreaseRepeatButton>
+                <Track.Thumb>
+                  <Thumb x:Name="Thumb" Focusable="False" Height="30" Margin="0,-15,0,0" OverridesDefaultStyle="True" BorderBrush="{TemplateBinding Foreground}" BorderThickness="2" Foreground="White" Template="{StaticResource SliderExThumb}" 
+                         VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                </Track.Thumb>
+              </Track>
+              <TickBar x:Name="BottomTick" Grid.Column="2" Fill="{TemplateBinding Foreground}" Margin="2,0,0,0" Placement="Right" Visibility="Collapsed" Width="4"/>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+              <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+              <Setter Property="Visibility" TargetName="BottomTick" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+              <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
+              <Setter Property="Visibility" TargetName="BottomTick" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="IsSelectionRangeEnabled" Value="true">
+              <Setter Property="Visibility" TargetName="PART_SelectionRange" Value="Visible"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Background" TargetName="IncreaseRepeatButton" Value="{DynamicResource MaterialDesignCheckBoxDisabled}" />
+            </Trigger>
+            <Trigger Property="IsActive" Value="True">
+              <Setter Property="Foreground" Value="Red" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>
