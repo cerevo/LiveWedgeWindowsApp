@@ -574,7 +574,7 @@ namespace Cerevo.UB300_Win.Api {
         public byte MainSrc;      /* main video source */
         public byte SubSrc;       /* sub (PinP/DSK) video source */
         public byte SubMode;      /* sub video mode */
-        public byte Padding;
+        //public byte Padding;
         public VideoTransition Trans;
         public uint ChromaFloor;  /* DSK keying parameter */
         public uint ChromaCeil;   /* DSK keying parameter */
